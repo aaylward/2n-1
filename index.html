@@ -7,13 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FF6B35;
-            --secondary: #F7931E;
-            --accent: #C13584;
+            --primary: #0077BB;
+            --secondary: #33BBEE;
+            --accent: #EE7733;
             --dark: #1A1A2E;
-            --light: #FFF8E7;
-            --highlight: #00D9FF;
+            --light: #F8F9FA;
+            --highlight: #009988;
             --text: #2D2D3A;
+            --gradient-start: #0077BB;
+            --gradient-end: #009988;
         }
 
         * {
@@ -38,20 +40,20 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 repeating-linear-gradient(
                     45deg,
                     transparent,
                     transparent 50px,
-                    rgba(255, 107, 53, 0.02) 50px,
-                    rgba(255, 107, 53, 0.02) 52px
+                    rgba(0, 119, 187, 0.02) 50px,
+                    rgba(0, 119, 187, 0.02) 52px
                 ),
                 repeating-linear-gradient(
                     -45deg,
                     transparent,
                     transparent 50px,
-                    rgba(0, 217, 255, 0.02) 50px,
-                    rgba(0, 217, 255, 0.02) 52px
+                    rgba(0, 153, 136, 0.02) 50px,
+                    rgba(0, 153, 136, 0.02) 52px
                 );
             z-index: -1;
             animation: patternShift 60s linear infinite;
@@ -78,7 +80,7 @@
             font-size: 20vw;
             font-weight: 700;
             font-family: 'Bebas Neue', sans-serif;
-            color: rgba(255, 107, 53, 0.05);
+            color: rgba(0, 119, 187, 0.05);
             white-space: nowrap;
             animation: scrollNumbers 40s linear infinite;
             top: 50%;
@@ -100,6 +102,7 @@
             position: relative;
             z-index: 1;
             animation: slideIn 0.8s ease-out;
+            text-align: center;
         }
 
         @keyframes slideIn {
@@ -115,11 +118,12 @@
 
         .subtitle {
             font-size: clamp(1.2rem, 3vw, 2rem);
-            color: var(--accent);
+            color: var(--text);
             margin-bottom: 2rem;
             position: relative;
             z-index: 1;
             animation: slideIn 0.8s ease-out 0.2s backwards;
+            text-align: center;
         }
 
         .timeline {
@@ -131,6 +135,8 @@
             z-index: 1;
             animation: fadeInUp 0.8s ease-out 0.4s backwards;
             border: 3px solid var(--primary);
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         @keyframes fadeInUp {
@@ -176,10 +182,10 @@
 
         .timeline-year {
             font-weight: 700;
-            color: var(--secondary);
+            color: var(--primary);
             font-size: 1.2rem;
             display: inline-block;
-            background: var(--light);
+            background: rgba(0, 119, 187, 0.1);
             padding: 0.25rem 0.75rem;
             border-radius: 5px;
             margin-bottom: 0.5rem;
@@ -241,22 +247,22 @@
             padding: 1.5rem;
             margin: 2rem 0;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .fun-box:hover {
             transform: translateX(10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
         .fact-card {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             color: white;
             padding: 2rem;
             border-radius: 15px;
             margin: 2rem 0;
-            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 119, 187, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -286,7 +292,7 @@
             content: '★';
             position: absolute;
             font-size: 20rem;
-            color: rgba(255, 107, 53, 0.1);
+            color: rgba(0, 119, 187, 0.1);
             right: -50px;
             top: -50px;
             animation: rotate 20s linear infinite;
@@ -299,7 +305,7 @@
 
         .number-badge {
             display: inline-block;
-            background: var(--accent);
+            background: var(--primary);
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 50px;
@@ -347,7 +353,7 @@
             border-radius: 5px;
             font-family: 'Space Mono', monospace;
             color: var(--accent);
-            border: 1px solid rgba(193, 53, 132, 0.2);
+            border: 1px solid rgba(238, 119, 51, 0.3);
         }
 
         strong {
@@ -368,6 +374,15 @@
         }
 
         @media (max-width: 768px) {
+            .hero {
+                padding: 1.5rem;
+                min-height: auto;
+            }
+
+            .timeline {
+                padding: 1.5rem;
+            }
+
             .timeline-item {
                 padding-left: 2rem;
             }
@@ -379,6 +394,46 @@
 
             h1 {
                 text-shadow: 2px 2px 0 var(--accent);
+                font-size: clamp(2.5rem, 10vw, 6rem);
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .fact-card, .fun-box, .pop-culture {
+                padding: 1.5rem;
+            }
+
+            .number-badge {
+                font-size: 0.9rem;
+                padding: 0.2rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: clamp(2rem, 12vw, 4rem);
+            }
+
+            .subtitle {
+                font-size: clamp(1rem, 4vw, 1.5rem);
+            }
+
+            .timeline {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1.5rem 0.75rem;
+            }
+
+            .fact-card, .fun-box, .pop-culture {
+                padding: 1rem;
             }
         }
 
