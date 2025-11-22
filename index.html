@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Odd Truth: A Mathematical Odyssey 🔢</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #F7931E;
+            --accent: #C13584;
+            --dark: #1A1A2E;
+            --light: #FFF8E7;
+            --highlight: #00D9FF;
+            --text: #2D2D3A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(255, 107, 53, 0.02) 50px,
+                    rgba(255, 107, 53, 0.02) 52px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(0, 217, 255, 0.02) 50px,
+                    rgba(0, 217, 255, 0.02) 52px
+                );
+            z-index: -1;
+            animation: patternShift 60s linear infinite;
+        }
+
+        @keyframes patternShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '1 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41';
+            position: absolute;
+            font-size: 20vw;
+            font-weight: 700;
+            font-family: 'Bebas Neue', sans-serif;
+            color: rgba(255, 107, 53, 0.05);
+            white-space: nowrap;
+            animation: scrollNumbers 40s linear infinite;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes scrollNumbers {
+            from { left: 100%; }
+            to { left: -100%; }
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 12vw, 8rem);
+            line-height: 0.9;
+            color: var(--primary);
+            text-shadow: 4px 4px 0 var(--accent);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--accent);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.8s ease-out 0.2s backwards;
+        }
+
+        .timeline {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+            border: 3px solid var(--primary);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--accent);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 1.5rem 0 1.5rem 3rem;
+            border-left: 3px solid var(--primary);
+            margin-left: 1rem;
+        }
+
+        .timeline-item::before {
+            content: '●';
+            position: absolute;
+            left: -0.9rem;
+            top: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            display: inline-block;
+            background: var(--light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-event {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: lineGrow 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes lineGrow {
+            to { transform: scaleX(1); }
+        }
+
+        h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--accent);
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .fun-box {
+            background: white;
+            border-left: 5px solid var(--highlight);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .fun-box:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .fact-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fact-card::before {
+            content: '!';
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            font-size: 10rem;
+            font-family: 'Bebas Neue', sans-serif;
+            color: rgba(255, 255, 255, 0.1);
+            font-weight: 700;
+        }
+
+        .pop-culture {
+            background: var(--dark);
+            color: var(--light);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pop-culture::before {
+            content: '★';
+            position: absolute;
+            font-size: 20rem;
+            color: rgba(255, 107, 53, 0.1);
+            right: -50px;
+            top: -50px;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .number-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-weight: 700;
+            margin: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        .reference-list {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .reference-list a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .reference-list a:hover {
+            border-bottom-color: var(--primary);
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        code {
+            background: var(--light);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-family: 'Space Mono', monospace;
+            color: var(--accent);
+            border: 1px solid rgba(193, 53, 132, 0.2);
+        }
+
+        strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item {
+                padding-left: 2rem;
+            }
+
+            .timeline-item::before {
+                left: -0.6rem;
+                font-size: 1rem;
+            }
+
+            h1 {
+                text-shadow: 2px 2px 0 var(--accent);
+            }
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>THE ODD TRUTH</h1>
+        <p class="subtitle">Where even numbers fear to tread <span class="emoji">🔢</span></p>
+        
+        <div class="timeline">
+            <h2>Timeline of Odd-yssey</h2>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">~20,000 BC</div>
+                <div class="timeline-event">
+                    <strong>The Ishango Bone</strong> in Central Africa shows organized mathematical notches, including what may be prime numbers (11, 13, 17, 19) - the earliest known mathematical artifact!
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">~3000 BC</div>
+                <div class="timeline-event">
+                    <strong>Sumerian scribes</strong> in Mesopotamia develop counting systems and write on clay tablets, distinguishing between numbers divisible by 2 and those that aren't
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">~2000 BC</div>
+                <div class="timeline-event">
+                    <strong>Babylonians</strong> create multiplication tables on clay tablets showing odd × odd = odd patterns, using their base-60 system
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">~500 BC</div>
+                <div class="timeline-event">
+                    <strong>Pythagoras</strong> philosophizes about odd numbers as "unlimited" and even numbers as "limited," founding number mysticism
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">~400 BC</div>
+                <div class="timeline-event">
+                    <strong>Philolaus</strong> invents the "even-odd" category for the number 1, because apparently being odd or even wasn't confusing enough
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1742</div>
+                <div class="timeline-event">
+                    <strong>Christian Goldbach</strong> writes to Euler suggesting every even number > 2 is the sum of two primes. Still unproven. Mathematicians are still mad about it.
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1770</div>
+                <div class="timeline-event">
+                    <strong>Leonhard Euler</strong> proves Fermat's Last Theorem for n=3. The proof? Only works for odd primes, naturally.
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1826</div>
+                <div class="timeline-event">
+                    <strong>Friedrich Fröbel</strong> insists that 1 is neither even nor odd, calling it "a great far-reaching law of nature and of thought"
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1937</div>
+                <div class="timeline-event">
+                    <strong>Ivan Vinogradov</strong> proves every sufficiently large odd number is the sum of three primes (the "weak" Goldbach conjecture)
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1973</div>
+                <div class="timeline-event">
+                    <strong>Chen Jingrun</strong> proves every large even number is the sum of a prime and a semi-prime (product of two primes). Close enough?
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2013</div>
+                <div class="timeline-event">
+                    <strong>Harald Helfgott</strong> finally proves the weak Goldbach conjecture. After only 271 years! Talk about fashionably late.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="reveal">
+            <h2>The Dawn of Counting</h2>
+            
+            <div class="fact-card">
+                <h3 style="color: white;">The Ishango Bone: Africa's 20,000-Year-Old Calculator <span class="emoji">🦴</span></h3>
+                <p>Long before Pythagoras, long before Babylon, there was the <strong>Ishango bone</strong> - discovered in 1960 near Lake Edward in the Democratic Republic of Congo. This baboon fibula, carved with deliberate notches arranged in three columns, dates back approximately <strong>20,000-25,000 years</strong>, making it potentially the oldest mathematical artifact in human history!</p>
+                
+                <p>What makes it mind-blowing:</p>
+                <ul>
+                    <li>The left column shows the prime numbers between 10 and 20: <strong>11, 13, 17, 19</strong></li>
+                    <li>One column appears to show doubling patterns</li>
+                    <li>The numbers suggest knowledge of base-10 counting (numbers near 10 and 20)</li>
+                    <li>Some researchers believe it's the world's first mathematical sieve for finding primes!</li>
+                </ul>
+                
+                <p>Belgian anthropologist Jean de Heinzelin de Braucourt, who discovered the bone, noted that the markings were "deliberately planned" - not random scratches but organized mathematical thinking from our African ancestors in the Stone Age.</p>
+            </div>
+
+            <div class="fun-box">
+                <h3>Before the Ishango: The Lebombo Bone</h3>
+                <p>Even older is the <strong>Lebombo bone</strong> from the border of South Africa and Swaziland, dating to around <strong>35,000-43,000 years ago</strong>. It has 29 notches carved in a row - potentially the earliest known tally stick, predating written language by about 28,000 years!</p>
+                <p>This means humans were thinking about numbers - including counting in odd and even quantities - for tens of thousands of years before we invented writing.</p>
+            </div>
+
+            <div class="fun-box">
+                <h3>Mesopotamia: Where Odd Met Even (Officially)</h3>
+                <p>Fast forward to around <strong>3000-2000 BC</strong>, and the Sumerians and Babylonians in ancient Mesopotamia (modern-day Iraq) developed sophisticated number systems carved into clay tablets. With hundreds of tablets surviving, we know they:</p>
+                <ul>
+                    <li>Used a sexagesimal (base-60) system that could distinguish odd from even</li>
+                    <li>Created multiplication tables that showed odd × odd = odd</li>
+                    <li>Understood that 60's divisibility by many numbers (including 2) made calculations easier</li>
+                    <li>Left us the legacy of 60 seconds, 60 minutes, and 360 degrees in a circle</li>
+                </ul>
+                <p>The Babylonians didn't just count - they did <strong>algebra, geometry, and even calculated square roots</strong>. A tablet from 1600 BC shows √2 calculated to 7 decimal places!</p>
+            </div>
+
+            <div class="fun-box">
+                <h3>Ancient Egypt: Odd Hieroglyphs</h3>
+                <p>The Egyptians (from before 3000 BC) used hieroglyphic symbols for different powers of 10. While they didn't have a specific symbol for "odd," their mathematical papyri show they understood that numbers ending in 1, 3, 5, 7, or 9 behaved differently than those ending in 0, 2, 4, 6, or 8.</p>
+                <p>The Rhind Mathematical Papyrus (c. 1650 BC) contains problems that implicitly use odd and even number properties, particularly in fraction calculations.</p>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <h2>The Ancient Odd Squad</h2>
+            
+            <div class="fun-box">
+                <h3>Pythagoras: The OG Odd Believer</h3>
+                <p>Around 500 BC, <strong>Pythagoras</strong> and his followers didn't just discover that whole triangle thing. They also developed a philosophical system where numbers had mystical properties. Odd numbers were considered "unlimited" and even numbers "limited," because odd numbers cannot be divided into two equal parts - they always have that extra unit that refuses to be paired.</p>
+                <p>The Pythagoreans believed that understanding numbers was the key to understanding the universe itself. They saw mathematical patterns everywhere in nature and considered number theory a path to enlightenment! <span class="emoji">✨</span></p>
+            </div>
+
+            <div class="fun-box">
+                <h3>The Number 1: Identity Crisis Champion</h3>
+                <p>Ancient Greeks considered <strong>1</strong> to be the "even-odd" (ἀρτιοπέριττον) - neither fully even nor fully odd. Their logic? Adding 1 to an even number makes it odd, and adding 1 to an odd number makes it even. Therefore, 1 must be <em>both</em>!</p>
+                <p>This confusion persisted for millennia. Even in the 19th century, educator <strong>Friedrich Wilhelm August Fröbel</strong> taught students that 1 was neither even nor odd, attaching deep philosophical meaning to this mathematical identity crisis.</p>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <h2>Theorems That'll Make You Odd-ly Happy</h2>
+
+            <div class="fact-card">
+                <h3 style="color: white;">Goldbach's Conjecture: 282 Years and Still Unsolved</h3>
+                <p>In 1742, <strong>Christian Goldbach</strong> wrote to Euler proposing that every even number greater than 2 is the sum of two prime numbers. For example:</p>
+                <ul>
+                    <li>4 = 2 + 2</li>
+                    <li>6 = 3 + 3</li>
+                    <li>8 = 3 + 5</li>
+                    <li>100 = 47 + 53 (or 41 + 59, or 3 + 97...)</li>
+                </ul>
+                <p><strong>The twist?</strong> It's been verified up to 4 × 10<sup>18</sup> but never proven for ALL even numbers. The "weak" version (every odd > 5 is the sum of three primes) was only proven in 2013 by Harald Helfgott!</p>
+            </div>
+
+            <div class="fun-box">
+                <h3>Fermat's Last Theorem: Odd Primes Only Club</h3>
+                <p>Pierre de Fermat claimed (in a margin, because of course) that <code>x<sup>n</sup> + y<sup>n</sup> = z<sup>n</sup></code> has no positive integer solutions for n > 2.</p>
+                <p>The kicker? <strong>To prove it for all n, you only need to prove it for odd primes!</strong> Why? Because every integer greater than 2 is either divisible by 4 or by an odd prime. Fermat himself proved n=4, so mathematicians spent 358 years working on odd prime cases until Andrew Wiles cracked it in 1995.</p>
+                <p><strong>Sophie Germain</strong> (the only woman in our odd tale) proved the first case for all primes less than 270. Not bad for someone who had to pretend to be a man to study math! <span class="emoji">💪</span></p>
+            </div>
+
+            <div class="fact-card">
+                <h3 style="color: white;">The Feit-Thompson Theorem: Odd Groups Are Solvable</h3>
+                <p>This 1963 theorem states that every finite group of <strong>odd order</strong> is solvable. The proof? A casual 255 pages. The implication? Deep connections between odd numbers and abstract algebra that most mathematicians still don't fully understand.</p>
+                <p>It's proof that odd numbers aren't just for counting - they're fundamental to the structure of mathematics itself!</p>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <h2>Odd Perfect Numbers: Math's Bigfoot</h2>
+            
+            <div class="fun-box">
+                <p>A <strong>perfect number</strong> equals the sum of its proper divisors. For example, 6 = 1 + 2 + 3. We know the formula for even perfect numbers (discovered by Euclid around 300 BC), but <strong>odd perfect numbers</strong>?</p>
+                
+                <p><strong>Status: Unknown for 2,300+ years</strong> <span class="emoji">🤷</span></p>
+                
+                <p>What we DO know:</p>
+                <ul>
+                    <li>If one exists, it's bigger than 10<sup>2,200</sup> (that's a number with 2,200 digits!)</li>
+                    <li>Euler proved it must be a prime raised to an odd power times a square</li>
+                    <li>Descartes found "spoofs" - numbers that are <em>almost</em> odd perfect numbers</li>
+                    <li>The Great Internet Mersenne Prime Search (GIMPS) continues the hunt</li>
+                </ul>
+                
+                <p>They're the Sasquatch of mathematics - rumored, elusive, and stubbornly resistant to selfies. <span class="emoji">📸</span></p>
+            </div>
+        </section>
+
+        <div class="pop-culture">
+            <h2 style="color: var(--light);">Pop Culture: The Odd-Numbered Curse</h2>
+            
+            <h3 style="color: var(--secondary);">Star Trek's Odd Problem</h3>
+            <p>Among Trekkies, there's a legendary rule: <strong>every odd-numbered Star Trek movie is terrible</strong>. British sitcom <em>Spaced</em> (co-written by Simon Pegg) famously declared: <em>"Sure as day follows night, sure as eggs is eggs, sure as every odd-numbered Star Trek movie is sh*t."</em></p>
+            
+            <p>The evidence:</p>
+            <ul style="list-style: none; padding: 0;">
+                <li><span class="number-badge">1</span> Star Trek: The Motion Picture - Slow, bloated, meh</li>
+                <li><span class="number-badge">2</span> The Wrath of Khan - LEGENDARY</li>
+                <li><span class="number-badge">3</span> The Search for Spock - Underrated but unloved</li>
+                <li><span class="number-badge">4</span> The Voyage Home - Comedy gold!</li>
+                <li><span class="number-badge">5</span> The Final Frontier - Universally derided (21% on Rotten Tomatoes!)</li>
+                <li><span class="number-badge">6</span> The Undiscovered Country - Fantastic</li>
+            </ul>
+            
+            <p style="margin-top: 1.5rem;"><strong>The irony?</strong> Simon Pegg later wrote Star Trek Beyond, film #13. Did he break the curse or prove it? The debate rages on!</p>
+        </div>
+
+        <section class="reveal">
+            <h2>Odd Coincidences & Fun Facts</h2>
+
+            <div class="fun-box">
+                <h3>Every Odd Number Has an "E" <span class="emoji">🤯</span></h3>
+                <p>One, three, five, seven, nine, eleven, thirteen... Seriously, try to find an odd number without the letter "e" in English. We'll wait.</p>
+            </div>
+
+            <div class="fun-box">
+                <h3>The Sum of Consecutive Odds = Perfect Squares</h3>
+                <p>Add up the first n odd numbers, and you always get n<sup>2</sup>:</p>
+                <ul>
+                    <li>1 = 1²</li>
+                    <li>1 + 3 = 4 = 2²</li>
+                    <li>1 + 3 + 5 = 9 = 3²</li>
+                    <li>1 + 3 + 5 + 7 = 16 = 4²</li>
+                </ul>
+                <p>This is called <strong>Nicomachus's Theorem</strong>, and it's beautifully geometric: arrange dots in L-shapes and watch squares form!</p>
+            </div>
+
+            <div class="fact-card">
+                <h3 style="color: white;">2025: The Odd Year That's Actually Even More Odd</h3>
+                <p>The year 2025 is oddly special:</p>
+                <ul>
+                    <li>It's 45² (a perfect square)</li>
+                    <li>It equals (1+2+3+4+5+6+7+8+9)² AND 1³+2³+3³+4³+5³+6³+7³+8³+9³</li>
+                    <li>It has exactly 15 <strong>odd divisors</strong> (and 15 is itself an odd divisor of 2025!)</li>
+                    <li>Split it: 20 + 25 = 45, which is √2025</li>
+                    <li>It's the product of 3² × 5², making it odd-squared-ception!</li>
+                </ul>
+            </div>
+
+            <div class="fun-box">
+                <h3>The Babylonian Legacy</h3>
+                <p>The ancient Babylonians (around 1800 BC) had clay tablets with tables of odd and even numbers! Their sexagesimal (base-60) system was so sophisticated that they could distinguish between numbers divisible by 2 and those that weren't - crucial for their complex calculations involving fractions and astronomy.</p>
+                <p>This legacy lives on today: we still use 60 seconds in a minute and 60 minutes in an hour, thanks to the Babylonians' love of highly divisible numbers!</p>
+            </div>
+
+            <div class="fun-box">
+                <h3>All Primes Are Odd (Except One!)</h3>
+                <p>Every prime number is odd... except for the number <strong>2</strong>, which is the "oddest even number" - it's the only even prime! This makes 2 special, unique, and the ultimate party crasher in the prime number club.</p>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <h2>Odd Rules of Arithmetic</h2>
+            
+            <div class="fun-box">
+                <p><strong>Addition:</strong></p>
+                <ul>
+                    <li>Odd + Odd = Even (two loners make a pair!)</li>
+                    <li>Odd + Even = Odd (the odd one always stands out)</li>
+                    <li>Even + Even = Even (boring but predictable)</li>
+                </ul>
+            </div>
+
+            <div class="fun-box">
+                <p><strong>Multiplication:</strong></p>
+                <ul>
+                    <li>Odd × Odd = Odd (odd refuses to be tamed!)</li>
+                    <li>Odd × Even = Even (even absorbs the oddness)</li>
+                    <li>Even × Even = Even (no surprises here)</li>
+                </ul>
+            </div>
+
+            <div class="fact-card">
+                <h3 style="color: white;">The HCF of Consecutive Odds is Always 1</h3>
+                <p>Any two consecutive odd numbers (like 13 and 15, or 99 and 101) have a highest common factor of 1. They're mathematical loners, sharing nothing but their oddness!</p>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <h2>Why Odd Numbers Matter</h2>
+            
+            <p>Beyond their quirky properties, odd numbers are fundamental to:</p>
+            
+            <div class="fun-box">
+                <h3>Cryptography</h3>
+                <p>RSA encryption (the tech securing your online banking) relies on the difficulty of factoring large numbers into odd primes. Every time you shop online, you're trusting in the oddness!</p>
+            </div>
+
+            <div class="fun-box">
+                <h3>Quantum Mechanics</h3>
+                <p>Fermions (particles like electrons) obey Fermi-Dirac statistics, which depend on odd/even symmetry properties. Literally, the universe cares about oddness at the quantum level!</p>
+            </div>
+
+            <div class="fun-box">
+                <h3>Symmetry & Beauty</h3>
+                <p>From five-petaled flowers to the three-fold symmetry of certain crystals, odd numbers appear throughout nature. The Fibonacci sequence (1, 1, 2, 3, 5, 8, 13, 21...) contains infinitely many odds, creating the golden ratio that defines beauty itself!</p>
+            </div>
+        </section>
+
+        <div class="reference-list">
+            <h3>References & Further Reading</h3>
+            <p><strong>If you enjoyed this odd journey, dive deeper:</strong></p>
+            
+            <p><strong>Earliest Mathematical Evidence:</strong></p>
+            <a href="https://en.wikipedia.org/wiki/Ishango_bone" target="_blank">• Wikipedia: Ishango Bone - The 20,000-year-old African mathematical artifact</a>
+            <a href="https://old.maa.org/press/periodicals/convergence/mathematical-treasure-ishango-bone" target="_blank">• Mathematical Association of America: Mathematical Treasure - Ishango Bone</a>
+            <a href="https://theaccomplishmagazine.com/ancient-african-mathematics-the-20000-year-old-ishango-bone-calculator/" target="_blank">• The Accomplish Magazine: Ancient African Mathematics</a>
+            <a href="https://en.wikipedia.org/wiki/Babylonian_mathematics" target="_blank">• Wikipedia: Babylonian Mathematics</a>
+            <a href="https://mathshistory.st-andrews.ac.uk/HistTopics/Babylonian_mathematics/" target="_blank">• MacTutor History of Mathematics: Babylonian Mathematics</a>
+            
+            <p style="margin-top: 1.5rem;"><strong>Historical Sources:</strong></p>
+            <a href="https://en.wikipedia.org/wiki/Parity_(mathematics)" target="_blank">• Wikipedia: Parity (Mathematics) - The definitive odd/even encyclopedia entry</a>
+            <a href="https://originsofmathematics.com/2015/03/05/even-and-odd/" target="_blank">• Origins of Mathematics: Even and Odd - Ancient Greek perspectives</a>
+            
+            <p style="margin-top: 1.5rem;"><strong>Goldbach's Conjecture:</strong></p>
+            <a href="https://en.wikipedia.org/wiki/Goldbach's_conjecture" target="_blank">• Wikipedia: Goldbach's Conjecture</a>
+            <a href="https://mathworld.wolfram.com/GoldbachConjecture.html" target="_blank">• Wolfram MathWorld: Goldbach Conjecture</a>
+            <a href="https://plus.maths.org/content/mathematical-mysteries-goldbach-conjecture" target="_blank">• Plus Magazine: Mathematical Mysteries of Goldbach</a>
+            
+            <p style="margin-top: 1.5rem;"><strong>Perfect Numbers:</strong></p>
+            <a href="https://commonplacefacts.com/2025/05/27/odd-perfect-numbers/" target="_blank">• Commonplace Fun Facts: The Search for Odd Perfect Numbers</a>
+            <a href="https://medium.com/@sarfrazahsan50/the-oldest-unsolved-problem-in-math" target="_blank">• Medium: The Oldest Unsolved Problem in Math</a>
+            
+            <p style="margin-top: 1.5rem;"><strong>Fermat's Last Theorem:</strong></p>
+            <a href="https://en.wikipedia.org/wiki/Fermat's_Last_Theorem" target="_blank">• Wikipedia: Fermat's Last Theorem</a>
+            <a href="https://en.wikipedia.org/wiki/Proof_of_Fermat's_Last_Theorem_for_specific_exponents" target="_blank">• Wikipedia: Proof for Specific Exponents</a>
+            
+            <p style="margin-top: 1.5rem;"><strong>Pop Culture:</strong></p>
+            <a href="https://screenrant.com/star-trek-movies-odd-number-curse-explained/" target="_blank">• Screen Rant: Star Trek's Odd-Numbered Movie Curse Explained</a>
+            <a href="https://www.startrek.com/news/10-unexpected-star-trek-references" target="_blank">• StarTrek.com: 10 Unexpected Star Trek References</a>
+            <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/StarTrekMovieCurse" target="_blank">• TV Tropes: Star Trek Movie Curse</a>
+            
+            <p style="margin-top: 1.5rem;"><strong>Fun Facts:</strong></p>
+            <a href="https://aperiodical.com/2025/01/numerical-coincidences-for-2025/" target="_blank">• The Aperiodical: Numerical Coincidences for 2025</a>
+            <a href="http://thescienceexplorer.com/universe/6-odd-facts-about-numbers-sound-too-crazy-be-true" target="_blank">• Science Explorer: 6 Odd Facts About Numbers</a>
+            <a href="https://www.splashlearn.com/math-vocabulary/algebra/odd-number" target="_blank">• SplashLearn: Odd Numbers Definition & Examples</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Created with <span class="emoji">❤️</span> and an odd sense of humor</p>
+        <p>Remember: Stay odd, stay prime, stay curious!</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">© 2025 | All odd rights reserved | No even numbers were harmed in the making of this page</p>
+    </footer>
+
+    <script>
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+        
+        function checkScroll() {
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+        checkScroll();
+    </script>
+</body>
+</html>
